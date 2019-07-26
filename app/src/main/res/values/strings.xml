@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DataSelected</string>
+    <string name="month_day">%1$d年%2$d月</string>
 </resources>

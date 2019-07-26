@@ -33,6 +33,7 @@ public class DataSelectedDialog extends Activity {
     private RecyclerView mYearSelect;
     private RecyclerView mDaySelect;
     private YearSelectAdapter mYearSelectAdapter;
+    private MonthSelectAdapter mMonthSelectAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +60,11 @@ public class DataSelectedDialog extends Activity {
         mYearSelect.setLayoutManager(manager);
 
         mDaySelect = new RecyclerView(this);
+        mDaySelect.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        mMonthSelectAdapter = new MonthSelectAdapter(this);
+        MonthLayoutManager monthLayoutManager = new MonthLayoutManager();
+        mDaySelect.setAdapter(mMonthSelectAdapter);
+        mDaySelect.setLayoutManager(monthLayoutManager);
 
         mViewAnimator.addView(mDaySelect);
         mViewAnimator.addView(mYearSelect);
@@ -72,6 +78,8 @@ public class DataSelectedDialog extends Activity {
 
 
         mViewAnimator.setDisplayedChild(0);
+
+        mMonthSelectAdapter.setYear(2019);
 
         mYearSelectAdapter.setYear(year);
         mYearSelectAdapter.notifyDataSetChanged();
