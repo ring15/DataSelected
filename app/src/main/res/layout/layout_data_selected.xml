@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".DataSelectedDialog">
+
+    <TextView
+        android:id="@+id/tv_day_of_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_round_top"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="12sp"
+        tools:text="星期四" />
+
+
+    <TextView
+        android:id="@+id/tv_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDeepPink"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        tools:text="7月" />
+
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDeepPink"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="42sp"
+        tools:text="25" />
+
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorDeepPink"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:padding="5dp"
+        android:textColor="@color/colorAWhite"
+        android:textSize="24sp"
+        tools:text="2019" />
+
+    <ViewAnimator
+        android:id="@+id/view_animator"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/background_round_bottom"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            android:onClick="onClick"
+            android:text="取消"
+            android:textColor="@color/colorDeepPink" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:onClick="onClick"
+            android:text="确定"
+            android:textColor="@color/colorDeepPink" />
+
+    </LinearLayout>
+
+</LinearLayout>
