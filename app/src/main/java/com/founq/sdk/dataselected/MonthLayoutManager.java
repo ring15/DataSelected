@@ -30,7 +30,7 @@ public class MonthLayoutManager extends RecyclerView.LayoutManager {
         if (state.getItemCount() == 0 || state.isPreLayout())
             return;
         mItemCount = getItemCount();
-        height = getVerticalSpace() / 7;
+        height = getVerticalSpace() / 8;
         layoutChild(recycler, 0);
     }
 
@@ -46,7 +46,7 @@ public class MonthLayoutManager extends RecyclerView.LayoutManager {
         int m = Math.abs(offSet) / height - num;
         if (m > 0) {
             for (int i = 0; i < m; i++) {
-                if (startPosition % 43 == 0) {
+                if (startPosition % 50 == 0) {
                     startPosition = startPosition + 1;
                 } else {
                     startPosition = startPosition + 7;
@@ -54,7 +54,7 @@ public class MonthLayoutManager extends RecyclerView.LayoutManager {
             }
         } else if (m < 0) {
             for (int i = 0; i < Math.abs(m); i++) {
-                if ((startPosition - 1) % 43 == 0) {
+                if ((startPosition - 1) % 50 == 0) {
                     startPosition = startPosition - 1;
                 } else {
                     startPosition = startPosition - 7;
@@ -70,9 +70,9 @@ public class MonthLayoutManager extends RecyclerView.LayoutManager {
         for (int i = 0; i < mItemCount; i++) {
             int top;
             int left;
-            if (i % 43 == 0) {
+            if (i % 50 == 0) {
                 titleNum++;
-                int line = i / 43;
+                int line = i / 50;
                 top = line * getVerticalSpace() + offSet;
                 left = 0;
             } else {
@@ -95,14 +95,14 @@ public class MonthLayoutManager extends RecyclerView.LayoutManager {
         for (int i = childCount - 1; i >= 0; i--) {
             View childView = getChildAt(i);
             int position = getPosition(childView);
-            if (position > startPosition + 50 || position < startPosition - 7) {
+            if (position > startPosition + 57 || position < startPosition - 7) {
                 removeAndRecycleView(childView, recycler);
             }
         }
 
         detachAndScrapAttachedViews(recycler);
 
-        for (int i = startPosition; i < startPosition + 50 && i < tops.size(); i++) {
+        for (int i = startPosition; i < startPosition + 57 && i < tops.size(); i++) {
             View childView = recycler.getViewForPosition(i);
             addView(childView);
             int mItemType = getItemViewType(childView);

@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_test:
                 Intent intent = new Intent(this, DataSelectedDialog.class);
                 Calendar calendar = Calendar.getInstance();
