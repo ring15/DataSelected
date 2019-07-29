@@ -1,6 +1,7 @@
 package com.founq.sdk.dataselected;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -127,6 +128,9 @@ public class DataSelectedDialog extends Activity {
                 finish();
                 break;
             case R.id.btn_ok:
+                Intent intent = new Intent();
+                intent.putExtra("date", mYear + "-" + mMonth + "-" + mDay);
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
         }
