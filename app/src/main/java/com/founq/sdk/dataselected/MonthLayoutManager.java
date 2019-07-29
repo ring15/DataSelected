@@ -95,7 +95,7 @@ public class MonthLayoutManager extends RecyclerView.LayoutManager {
         for (int i = childCount - 1; i >= 0; i--) {
             View childView = getChildAt(i);
             int position = getPosition(childView);
-            if (position > startPosition + 57 || position < startPosition - 7) {
+            if (position > startPosition || position < startPosition - 7) {
                 removeAndRecycleView(childView, recycler);
             }
         }

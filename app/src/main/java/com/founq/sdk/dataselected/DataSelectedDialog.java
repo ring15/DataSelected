@@ -80,6 +80,11 @@ public class DataSelectedDialog extends Activity {
         mViewAnimator.setDisplayedChild(0);
 
         mMonthSelectAdapter.setYear(2019);
+        mMonthSelectAdapter.setMonth(8);
+        mMonthSelectAdapter.setDay(3);
+        mMonthSelectAdapter.notifyDataSetChanged();
+//        mDaySelect.scrollToPosition((8 - 1) * 50 + 1);
+        mDaySelect.scrollToPosition(101);
 
         mYearSelectAdapter.setYear(year);
         mYearSelectAdapter.notifyDataSetChanged();
@@ -114,6 +119,11 @@ public class DataSelectedDialog extends Activity {
 
     public void showYear(int year) {
         mYearText.setText(year + "");
+    }
+
+    public void showDay(int month, int day) {
+        mMonthText.setText(month + "");
+        mDayText.setText(day + "");
     }
 
     public void scrollTo(int year) {
