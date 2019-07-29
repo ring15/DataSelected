@@ -1,5 +1,6 @@
 package com.founq.sdk.dataselected;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
 public class DateUtils {
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * 格式化时间戳
@@ -279,6 +281,13 @@ public class DateUtils {
             formatTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date(time));
         }
         return formatTime;
+    }
+
+    public static Date stringToDate(String strTime)
+            throws ParseException {
+        Date date = null;
+        date = dateFormat2.parse(strTime);
+        return date;
     }
 }
 

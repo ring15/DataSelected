@@ -13,10 +13,16 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by ring on 2019/7/25.
  */
 public class DataSelectedDialog extends Activity {
+
+    private String[] week = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
 
     private TextView mDayOfWeekText;
     private TextView mDayText;
@@ -26,9 +32,9 @@ public class DataSelectedDialog extends Activity {
     private Button mCancleBtn;
     private Button mSureBtn;
 
-    private int year;
-    private int month;
-    private int day;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
     private RecyclerView mYearSelect;
     private RecyclerView mDaySelect;
@@ -40,19 +46,33 @@ public class DataSelectedDialog extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_data_selected);
         setFinishOnTouchOutside(false);
+        mYear = getIntent().getIntExtra("year", 2019);
+        mMonth = getIntent().getIntExtra("month", 7);
+        mDay = getIntent().getIntExtra("day", 25);
         findView();
+        setDataText();
         init();
     }
 
+    private void setDataText() {
+        mDayText.setText(mDay + "");
+        mMonthText.setText(mMonth + "");
+        mYearText.setText(mYear + "");
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = null;
+        try {
+            date = DateUtils.stringToDate(mYear + "-" + mMonth + "-" + mDay);
+            calendar.setTime(date);
+            int intWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+            mDayOfWeekText.setText(week[intWeek]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void init() {
-        year = getIntent().getIntExtra("year", 2019);
-        month = getIntent().getIntExtra("month", 7);
-        day = getIntent().getIntExtra("day", 25);
-
-        mDayText.setText(day + "");
-        mMonthText.setText(month + "");
-        mYearText.setText(year + "");
-
         mYearSelect = new RecyclerView(this);
         mYearSelectAdapter = new YearSelectAdapter(this);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
@@ -61,7 +81,7 @@ public class DataSelectedDialog extends Activity {
 
         mDaySelect = new RecyclerView(this);
         mDaySelect.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mMonthSelectAdapter = new MonthSelectAdapter(this);
+        mMonthSelectAdapter = new MonthSelectAdapter(this, mYear, mMonth, mDay);
         MonthLayoutManager monthLayoutManager = new MonthLayoutManager();
         mDaySelect.setAdapter(mMonthSelectAdapter);
         mDaySelect.setLayoutManager(monthLayoutManager);
@@ -79,16 +99,9 @@ public class DataSelectedDialog extends Activity {
 
         mViewAnimator.setDisplayedChild(0);
 
-        mMonthSelectAdapter.setYear(2019);
-        mMonthSelectAdapter.setMonth(8);
-        mMonthSelectAdapter.setDay(3);
-        mMonthSelectAdapter.notifyDataSetChanged();
-//        mDaySelect.scrollToPosition((8 - 1) * 50 + 1);
-        mDaySelect.scrollToPosition(101);
-
-        mYearSelectAdapter.setYear(year);
+        mYearSelectAdapter.setYear(mYear);
         mYearSelectAdapter.notifyDataSetChanged();
-        scrollTo(year);
+        scrollTo(mYear);
     }
 
     private void findView() {
@@ -105,8 +118,10 @@ public class DataSelectedDialog extends Activity {
         switch (view.getId()) {
             case R.id.tv_day:
             case R.id.tv_month:
+                changeToDay();
                 break;
             case R.id.tv_year:
+                changeToYear();
                 break;
             case R.id.btn_cancel:
                 finish();
@@ -117,13 +132,35 @@ public class DataSelectedDialog extends Activity {
         }
     }
 
+    private void changeToYear(){
+        mDayText.setTextColor(getResources().getColor(R.color.colorAWhite));
+        mMonthText.setTextColor(getResources().getColor(R.color.colorAWhite));
+        mYearText.setTextColor(getResources().getColor(R.color.colorWhite));
+        mViewAnimator.setDisplayedChild(1);
+    }
+
+    private void changeToDay(){
+        mDayText.setTextColor(getResources().getColor(R.color.colorWhite));
+        mMonthText.setTextColor(getResources().getColor(R.color.colorWhite));
+        mYearText.setTextColor(getResources().getColor(R.color.colorAWhite));
+        mViewAnimator.setDisplayedChild(0);
+    }
+
     public void showYear(int year) {
-        mYearText.setText(year + "");
+        mYear = year;
+        scrollTo(mYear);
+        setDataText();
+        mMonthSelectAdapter.setYear(mYear);
+        mMonthSelectAdapter.setMonth(mMonth);
+        mMonthSelectAdapter.setDay(mDay);
+        mMonthSelectAdapter.notifyDataSetChanged();
+        changeToDay();
     }
 
     public void showDay(int month, int day) {
-        mMonthText.setText(month + "");
-        mDayText.setText(day + "");
+        mMonth = month;
+        mDay = day;
+        setDataText();
     }
 
     public void scrollTo(int year) {

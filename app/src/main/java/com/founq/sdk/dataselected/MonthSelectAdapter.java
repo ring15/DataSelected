@@ -25,24 +25,38 @@ public class MonthSelectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int currentSelected;
     private int currentDay;
 
+    private int defaultYear;
+    private int defaultMonth;
+    private int defaultDay;
+
     public void setYear(int year) {
         mYear = year;
     }
 
     public void setMonth(int month) {
         mMonth = month;
-        currentDay = 50 * (mMonth-1);
     }
 
     public void setDay(int day) {
         mDay = day;
+        currentDay = 50 * (defaultMonth-1);
+        int cDay = DateUtils.getWeekOfMonthBegin(mYear, defaultMonth) - 1;
+        currentDay += cDay + defaultDay + 7;
+        currentSelected = 50 * (mMonth-1) + DateUtils.getWeekOfMonthBegin(mYear, mMonth) - 1 + mDay + 7;
+    }
+
+    public MonthSelectAdapter(Context context, int year, int month, int day) {
+        mContext = context;
+        mYear = year;
+        mMonth = month;
+        mDay = day;
+        defaultYear = year;
+        defaultMonth = month;
+        defaultDay = day;
+        currentDay = 50 * (mMonth-1);
         int cDay = DateUtils.getWeekOfMonthBegin(mYear, mMonth) - 1;
         currentDay += cDay + mDay + 7;
         currentSelected = currentDay;
-    }
-
-    public MonthSelectAdapter(Context context) {
-        mContext = context;
     }
 
     @Override
